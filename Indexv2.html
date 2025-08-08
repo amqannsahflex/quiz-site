@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>درس تفاعلي: أسلوب الطلب وجوابه المجزوم</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .lesson-container {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+        }
+        .tab-btn {
+            transition: all 0.3s ease;
+            border-bottom: 4px solid transparent;
+            padding-bottom: 8px;
+        }
+        .tab-btn.active {
+            color: #007bff;
+            border-bottom-color: #007bff;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .info-box {
+            background-color: #f1f3f5;
+            border-right: 5px solid #007bff;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+        .analysis-result {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s ease-in-out;
+        }
+        .analysis-result.show {
+            max-height: 500px;
+            margin-top: 1rem;
+        }
+        .quiz-option {
+            border: 2px solid #dee2e6;
+            transition: all 0.2s ease;
+        }
+        .quiz-option:hover:not([disabled]) {
+            border-color: #007bff;
+            transform: translateY(-2px);
+        }
+        .quiz-option.correct {
+            background-color: #d4edda;
+            border-color: #28a745;
+        }
+        .quiz-option.incorrect {
+            background-color: #f8d7da;
+            border-color: #dc3545;
+        }
+        .progress-bar-inner {
+            transition: width 0.5s ease-in-out;
+        }
+        .feedback-box {
+            transition: opacity 0.3s;
+        }
+        .game-sub-tab.active {
+            background-color: #007bff;
+            color: white;
+        }
+        .draggable-item {
+            cursor: grab;
+            user-select: none;
+        }
+        .dragging {
+            opacity: 0.5;
+            border: 2px dashed #007bff;
+        }
+        .drop-target {
+            border: 2px dashed #adb5bd;
+            transition: background-color 0.3s;
+        }
+        .drop-target.over {
+            background-color: #e9ecef;
+        }
+        .drop-target.correct {
+            border-color: #28a745;
+            background-color: #d4edda;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-5xl">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-black text-[#0056b3]">أسلوب الطلب وجوابه المجزوم</h1>
+            <div class="flex justify-center items-center gap-4 mt-4">
+                <p class="text-lg text-gray-600">مقدم من الأستاذ: لؤي جمال</p>
+                <a href="https://www.facebook.com/share/16wrSm3Gun/" target="_blank" class="text-blue-600 hover:opacity-75 transition-opacity">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06c0 5.52 4.5 10.02 10 10.02s10-4.5 10-10.02C22 6.53 17.5 2.04 12 2.04zM16.5 8.25h-2.25c-.5 0-.75.38-.75.75v1.5h3l-.5 2.25h-2.5V18h-3v-5.25H8.25v-2.25h2.25V8c0-1.5 1.5-3 3-3h3v3.25z"/></svg>
+                </a>
+                <a href="https://www.instagram.com/loaymqnsah?igsh=MWQ2eTB0NTFxaGEydA==" target="_blank" class="text-black hover:opacity-75 transition-opacity">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z" /></svg>
+                </a>
+                <img src="https://placehold.co/100x100/ffffff/000000?text=@LOAYMQNSAH" alt="QR Code" class="w-16 h-16 rounded-lg shadow-md" title="امسح الكود للوصول">
+            </div>
+        </header>
+
+        <div class="lesson-container">
+            <!-- Tabs Navigation -->
+            <div class="flex justify-center border-b bg-gray-50 rounded-t-lg p-2 flex-wrap">
+                <button class="tab-btn active font-bold py-2 px-4 md:px-6 text-base md:text-lg" onclick="showTab('explanation')">الشرح التفاعلي</button>
+                <button class="tab-btn font-bold py-2 px-4 md:px-6 text-base md:text-lg" onclick="showTab('game')">ألعاب تفاعلية</button>
+                <button class="tab-btn font-bold py-2 px-4 md:px-6 text-base md:text-lg" onclick="showTab('test')">الاختبار الشامل</button>
+                <button class="tab-btn font-bold py-2 px-4 md:px-6 text-base md:text-lg" onclick="showTab('remedial')">خطة علاجية</button>
+            </div>
+
+            <div class="p-6 md:p-8">
+                <!-- Explanation Section -->
+                <div id="explanation" class="content-section active">
+                    <h2 class="text-2xl font-bold text-[#007bff] mb-4">1. أركان أسلوب الطلب</h2>
+                    <p>هو أسلوب يتكون من ركنين أساسيين: <span class="font-bold">فعل الطلب (فعل أمر)</span>، و<span class="font-bold">جواب الطلب (فعل مضارع مجزوم)</span>. انقر على كل مثال للكشف عن تحليله:</p>
+                    <div class="space-y-4 mt-4">
+                        <div class="info-box">
+                            <button onclick="toggleAnalysis('analysis-1')" class="w-full text-right font-bold">﴿فَاذْكُرُونى أَذْكُرْكُمْ﴾</button>
+                            <div id="analysis-1" class="analysis-result"><hr class="my-2 border-gray-300"><p class="text-sm"><span class="font-bold">فعل الطلب:</span> اذكروني | <span class="font-bold text-red-600">جواب الطلب:</span> أذكركم</p></div>
+                        </div>
+                        <div class="info-box">
+                            <button onclick="toggleAnalysis('analysis-2')" class="w-full text-right font-bold">تسامحوا يُؤلّف الله بينكم.</button>
+                            <div id="analysis-2" class="analysis-result"><hr class="my-2 border-gray-300"><p class="text-sm"><span class="font-bold">فعل الطلب:</span> تسامحوا | <span class="font-bold text-red-600">جواب الطلب:</span> يؤلف</p></div>
+                        </div>
+                         <div class="info-box">
+                            <button onclick="toggleAnalysis('analysis-new-1')" class="w-full text-right font-bold">شاركي في الانتخابات الطلابية تُساهمي في الحياة النيابية.</button>
+                            <div id="analysis-new-1" class="analysis-result"><hr class="my-2 border-gray-300"><p class="text-sm"><span class="font-bold">فعل الطلب:</span> شاركي | <span class="font-bold text-red-600">جواب الطلب:</span> تساهمي</p></div>
+                        </div>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-[#007bff] mt-8 mb-4">2. أصل الأسلوب وعلاقته بالشرط</h2>
+                    <p>أسلوب الطلب هو في الأصل أسلوب شرط حُذفت منه أداة الشرط وفعل الشرط. انقر للكشف عن التقدير.</p>
+                     <div class="info-box">
+                        <p><strong>أسلوب الطلب:</strong> راجعْ الموادّ أولًا بأوّل تتفوّقْ.</p>
+                        <button onclick="toggleAnalysis('analysis-cond-1')" class="text-blue-600 font-semibold mt-2">أظهر التقدير كأسلوب شرط</button>
+                        <div id="analysis-cond-1" class="analysis-result"><hr class="my-2 border-gray-300"><p><strong>التقدير:</strong> إنْ تراجعْ الموادّ أولًا بأوّل تتفوّقْ.</p></div>
+                    </div>
+                    
+                    <h2 class="text-2xl font-bold text-[#007bff] mt-8 mb-4">3. علامات جزم جواب الطلب</h2>
+                    <p>يُجزَم الفعل المضارع في جواب الطلب بنفس علامات الجزم المعروفة. انقر للكشف عن الأمثلة:</p>
+                    <div class="info-box">
+                        <ul class="list-decimal pr-6 space-y-2">
+                            <li><strong>السكون:</strong> إذا كان الفعل صحيح الآخر. <button onclick="toggleAnalysis('jussive-1')" class="text-blue-600 text-sm">(مثال)</button>
+                                <div id="jussive-1" class="analysis-result"><p class="text-sm mt-1">تكلّمْ <span class="font-bold text-red-600">يفهمْ</span> الناس مرادك. / تَكَلَّمْ <span class="font-bold text-red-600">تُعْرَفُ</span> (حرك بالضم لضرورة شعرية)</p></div>
+                            </li>
+                            <li><strong>حذف حرف العلة:</strong> إذا كان الفعل معتل الآخر. <button onclick="toggleAnalysis('jussive-2')" class="text-blue-600 text-sm">(مثال)</button>
+                                <div id="jussive-2" class="analysis-result"><p class="text-sm mt-1">اتّقِ الله <span class="font-bold text-red-600">ترَ</span> الخير. / قفا <span class="font-bold text-red-600">نبكِ</span>.</p></div>
+                            </li>
+                            <li><strong>حذف النون:</strong> إذا كان من الأفعال الخمسة. <button onclick="toggleAnalysis('jussive-3')" class="text-blue-600 text-sm">(مثال)</button>
+                                <div id="jussive-3" class="analysis-result"><p class="text-sm mt-1">اصنعا المعروف <span class="font-bold text-red-600">تتجنبا</span> ميتة السوء. / صَلُّوا <span class="font-bold text-red-600">تجدوا</span> متعة الخشوع.</p></div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <h2 class="text-2xl font-bold text-[#007bff] mt-8 mb-4">4. حلّل جملتك بنفسك!</h2>
+                    <p>اكتب جملة على نمط أسلوب الطلب (مثال: ادرس تنجح) ثم اضغط "حلّل" لترى تحليلها.</p>
+                    <div class="mt-4 flex flex-col sm:flex-row gap-2">
+                        <input type="text" id="sentence-input" placeholder="اكتب جملة هنا..." class="flex-grow p-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none">
+                        <button onclick="analyzeSentence()" class="bg-blue-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-600 transition">حلّل الجملة</button>
+                    </div>
+                    <div id="analyzer-result" class="info-box mt-4 hidden"></div>
+
+                    <h2 class="text-2xl font-bold text-[#007bff] mt-8 mb-4">5. أمثلة إعرابية تفاعلية</h2>
+                    <p>انقر على كل مثال للكشف عن الإعراب الكامل.</p>
+                    <div class="space-y-4 mt-4">
+                        <div class="info-box">
+                            <button onclick="toggleAnalysis('analysis-3')" class="w-full text-right font-bold">اركبا القطار تصلا بسرعةٍ.</button>
+                            <div id="analysis-3" class="analysis-result"><hr class="my-2 border-gray-300"><p><span class="font-bold">اركبا:</span> فعل أمر مبني على حذف النون؛ لاتصاله بألف الاثنين. وألف الاثنين ضمير متصل مبني في محل رفع فاعل.</p><p><span class="font-bold">تصلا:</span> فعل مضارع مجزوم لأنه جواب الطلب، وعلامة جزمه حذف النون. وألف الاثنين فاعل.</p></div>
+                        </div>
+                        <div class="info-box">
+                            <button onclick="toggleAnalysis('analysis-4')" class="w-full text-right font-bold">"أَلِنْ جانبَكَ لِقَوْمِكَ يُحبّوك".</button>
+                            <div id="analysis-4" class="analysis-result"><hr class="my-2 border-gray-300"><p><span class="font-bold">ألنْ:</span> فعل أمر مبني على السكون.</p><p><span class="font-bold">يحبّوك:</span> فعل مضارع مجزوم لأنه جواب الطلب، وعلامة جزمه حذف النون لأنه من الأفعال الخمسة. واو الجماعة فاعل، والكاف مفعول به.</p></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game Section -->
+                <div id="game" class="content-section text-center">
+                     <div class="flex justify-center border rounded-lg p-1 bg-gray-100 mb-6 max-w-lg mx-auto">
+                        <button class="game-sub-tab flex-1 font-semibold p-2 rounded-md active" onclick="showGame('game-1')">أكمل الجملة</button>
+                        <button class="game-sub-tab flex-1 font-semibold p-2 rounded-md" onclick="showGame('game-2')">صوّب الخطأ</button>
+                        <button class="game-sub-tab flex-1 font-semibold p-2 rounded-md" onclick="showGame('game-3')">لعبة التوصيل</button>
+                    </div>
+
+                    <div id="game-1" class="game-content active">
+                        <h2 class="text-2xl font-bold text-[#007bff] mb-2">لعبة: أكمل الجملة</h2>
+                        <p class="text-gray-600 mb-6">اكتب جواب الطلب المناسب للفعل، ثم تحقق من إجابتك.</p>
+                        <div class="bg-gray-100 p-6 rounded-lg">
+                            <div id="game-prompt-1" class="text-2xl font-bold mb-4"></div>
+                            <div class="flex flex-col sm:flex-row gap-2">
+                                <input type="text" id="game-input-1" class="flex-grow p-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none text-center text-xl" placeholder="اكتب جواب الطلب هنا">
+                                <button id="check-game-btn-1" class="bg-green-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-600 transition">تحقق</button>
+                            </div>
+                            <p id="game-feedback-1" class="mt-4 font-bold h-6"></p>
+                        </div>
+                        <button id="next-game-btn-1" class="mt-6 bg-blue-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-600 transition hidden">السؤال التالي</button>
+                    </div>
+
+                    <div id="game-2" class="game-content hidden">
+                        <h2 class="text-2xl font-bold text-[#007bff] mb-2">لعبة: صوّب الخطأ</h2>
+                        <p class="text-gray-600 mb-6">في الجملة التالية خطأ في جواب الطلب. اكتب التصويب الصحيح.</p>
+                        <div class="bg-gray-100 p-6 rounded-lg">
+                            <div id="game-prompt-2" class="text-2xl font-bold mb-4"></div>
+                            <div class="flex flex-col sm:flex-row gap-2">
+                                <input type="text" id="game-input-2" class="flex-grow p-3 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none text-center text-xl" placeholder="اكتب التصويب هنا">
+                                <button id="check-game-btn-2" class="bg-green-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-600 transition">صوّب</button>
+                            </div>
+                            <p id="game-feedback-2" class="mt-4 font-bold h-6"></p>
+                        </div>
+                        <button id="next-game-btn-2" class="mt-6 bg-blue-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-600 transition hidden">السؤال التالي</button>
+                    </div>
+
+                    <div id="game-3" class="game-content hidden">
+                        <h2 class="text-2xl font-bold text-[#007bff] mb-2">لعبة: التوصيل</h2>
+                        <p class="text-gray-600 mb-6">اسحب جواب الطلب الصحيح وأفلته بجانب فعل الطلب المناسب له.</p>
+                        <div class="grid grid-cols-2 gap-4 max-w-2xl mx-auto">
+                            <div id="game3-requests" class="space-y-3"></div>
+                            <div id="game3-responses" class="space-y-3 p-4 bg-gray-100 rounded-lg"></div>
+                        </div>
+                        <p id="game-feedback-3" class="mt-6 font-bold h-6 text-xl"></p>
+                    </div>
+                </div>
+
+                <!-- Test Section -->
+                <div id="test" class="content-section text-center">
+                    <div id="test-start-screen">
+                        <h2 class="text-2xl font-bold text-[#007bff] mb-2">الاختبار الشامل</h2>
+                        <p class="text-gray-600 mb-6">اختبر فهمك للدرس من خلال 50 سؤالًا.</p>
+                        <button id="start-test-btn" class="bg-blue-500 text-white font-bold py-3 px-8 rounded-lg text-xl hover:bg-blue-600 transition">ابدأ الاختبار</button>
+                    </div>
+                    <div id="test-quiz-screen" class="hidden">
+                        <div class="flex justify-between items-center mb-4">
+                            <span id="test-question-counter" class="text-sm font-bold text-gray-600"></span>
+                            <span id="test-score-display" class="text-sm font-bold text-gray-600">النتيجة: 0</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 mb-6">
+                            <div id="progress-bar" class="bg-blue-500 h-2.5 rounded-full progress-bar-inner" style="width: 0%"></div>
+                        </div>
+                        <h3 id="test-question" class="text-2xl font-bold mb-8"></h3>
+                        <div id="test-options" class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-xl mx-auto"></div>
+                        <div id="test-feedback-box" class="mt-4 p-4 rounded-lg text-center font-semibold hidden feedback-box"></div>
+                    </div>
+                     <div id="test-end-screen" class="hidden">
+                         <h3 class="text-2xl font-bold mb-4">انتهى الاختبار!</h3>
+                         <p class="text-xl mb-4">نتيجتك النهائية:</p>
+                         <p id="test-final-score" class="text-5xl font-black text-blue-500 mb-6"></p>
+                         <div id="test-final-feedback" class="p-4 rounded-lg"></div>
+                         <button id="retry-test-btn" class="mt-6 bg-blue-500 text-white font-bold py-3 px-8 rounded-lg text-xl hover:bg-blue-600 transition">أعد الاختبار</button>
+                    </div>
+                </div>
+
+                <!-- Remedial Plan Section -->
+                <div id="remedial" class="content-section">
+                    <h2 class="text-2xl font-bold text-[#dc3545] mb-4">خطة علاجية</h2>
+                    <p>إذا كانت نتيجتك في الاختبار الشامل أقل من المأمول، لا تقلق. اتبع هذه الخطوات لتحسين فهمك:</p>
+                    <ul class="list-decimal pr-6 mt-4 space-y-4">
+                        <li><strong>إذا كانت نتيجتك أقل من 25:</strong> ابدأ من جديد! أعد قراءة "الشرح التفاعلي" بتركيز شديد، وتأكد من فهم كل مثال قبل الانتقال للنقطة التالية.</li>
+                        <li><strong>إذا كانت نتيجتك بين 25 و 40:</strong> أنت قريب! ركز على الأسئلة التي أخطأت بها في الاختبار. هل هي علامات الإعراب؟ أم تحديد الأركان؟ استخدم أداة "حلّل جملتك" للتمرين على جمل جديدة.</li>
+                        <li><strong>لكل الطلاب:</strong>
+                            <div class="info-box mt-2">
+                                <p>تذكر دائمًا أن هذا الأسلوب يعتمد على وجود <span class="font-bold">طلب (أمر)</span> يترتب عليه <span class="font-bold">نتيجة (جواب)</span>. هذا هو مفتاح فهم الدرس.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="mt-6 flex flex-col sm:flex-row items-center gap-6 bg-gray-100 p-4 rounded-lg">
+                                <img src="https://i.ibb.co/9g0gW2M/loay-jamal-photo.jpg" alt="الأستاذ لؤي جمال" class="w-32 h-32 rounded-full object-cover shadow-lg">
+                                <div class="text-center sm:text-right">
+                                    <h3 class="text-xl font-bold">اطلب المساعدة من معلمك</h3>
+                                    <p class="text-lg font-semibold">الأستاذ لؤي جمال</p>
+                                    <p class="flex items-center justify-center sm:justify-start gap-2 mt-2" dir="ltr">
+                                        <svg class="w-5 h-5 text-green-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.31 20.6C8.75 21.42 10.36 21.88 12.04 21.88C17.5 21.88 21.95 17.43 21.95 11.97C21.95 9.3 20.87 6.83 19.05 4.99C17.21 3.17 14.74 2 12.04 2M12.04 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.71 20.28 11.96C20.28 16.53 16.59 20.22 12.04 20.22C10.53 20.22 9.09 19.81 7.85 19.07L7.4 18.83L4.3 19.7L5.23 16.7L4.96 16.25C4.14 14.93 3.79 13.47 3.79 11.92C3.79 7.35 7.48 3.67 12.04 3.67M9.13 7.5C8.91 7.5 8.7 7.59 8.55 7.73L8.41 7.87C8.26 8.02 8.03 8.26 8.03 8.63C8.03 9 8.12 9.34 8.21 9.53C8.3 9.73 8.57 10.19 9.03 10.74C9.48 11.29 10.1 11.91 10.74 12.33C11.22 12.64 11.58 12.78 11.87 12.87C12.17 12.97 12.64 13.11 13.06 12.97C13.48 12.83 14.18 12.17 14.37 11.59C14.56 11.01 14.56 10.54 14.47 10.4C14.37 10.26 14.23 10.17 14.04 10.03C13.85 9.89 12.97 9.48 12.78 9.4C12.58 9.32 12.44 9.28 12.3 9.52C12.16 9.76 11.87 10.05 11.73 10.19C11.58 10.34 11.44 10.36 11.25 10.22C11.06 10.08 10.5 9.84 9.8 9.2C9.21 8.66 8.81 8.03 8.67 7.8C8.52 7.56 8.61 7.44 8.7 7.35C8.8 7.26 8.92 7.15 9.06 7C9.2 6.85 9.25 6.78 9.34 6.64C9.44 6.5 9.39 6.31 9.35 6.22C9.3 6.13 9.13 7.5 9.13 7.5Z"></path></svg>
+                                        0797492800
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`button[onclick="showTab('${tabId}')"]`).classList.add('active');
+        }
+
+        function toggleAnalysis(elementId) {
+            document.getElementById(elementId).classList.toggle('show');
+        }
+
+        function analyzeSentence() {
+            const input = document.getElementById('sentence-input');
+            const resultDiv = document.getElementById('analyzer-result');
+            const sentence = input.value.trim();
+            if (!sentence) {
+                resultDiv.innerHTML = '<p class="text-red-600">الرجاء إدخال جملة أولاً.</p>';
+                resultDiv.classList.remove('hidden'); return;
+            }
+            const words = sentence.split(' ').filter(word => word.length > 0);
+            if (words.length < 2) {
+                resultDiv.innerHTML = '<p class="text-red-600">الجملة قصيرة جدًا. يجب أن تحتوي على فعل طلب وجوابه.</p>';
+                resultDiv.classList.remove('hidden'); return;
+            }
+            const requestVerb = words[0];
+            const responseVerb = words[1];
+            let jussiveSign = 'غير محدد';
+            if (responseVerb.endsWith('وا') || responseVerb.endsWith('يا') || responseVerb.endsWith('ا')) {
+                jussiveSign = 'حذف النون';
+            } else if (responseVerb.endsWith('ْ')) {
+                 jussiveSign = 'السكون';
+            } else if (['ا', 'و', 'ي'].indexOf(requestVerb.slice(-1)) === -1 && ['َ', 'ِ', 'ُ'].indexOf(responseVerb.slice(-1)) !== -1) {
+                jussiveSign = 'حذف حرف العلة';
+            } else {
+                jussiveSign = 'السكون (مقدر)';
+            }
+            resultDiv.innerHTML = `<p><span class="font-bold">فعل الطلب:</span> ${requestVerb}</p><p><span class="font-bold">جواب الطلب:</span> ${responseVerb}</p><p><span class="font-bold">علامة الجزم (محتملة):</span> ${jussiveSign}</p>`;
+            resultDiv.classList.remove('hidden');
+        }
+
+        // --- Game Logic ---
+        function showGame(gameId) {
+            document.querySelectorAll('.game-content').forEach(game => game.classList.remove('active', 'block') || game.classList.add('hidden'));
+            document.getElementById(gameId).classList.add('active', 'block');
+            document.getElementById(gameId).classList.remove('hidden');
+            document.querySelectorAll('.game-sub-tab').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`button[onclick="showGame('${gameId}')"]`).classList.add('active');
+        }
+
+        // Game 1: Fill in the blank
+        const game1Prompts = [ { request: "ادرسْ بجد", response: "تنجحْ" }, { request: "ابتسموا للناس", response: "يحبّوكم" }, { request: "اسعَ في الخير", response: "تلقَ" }];
+        let currentGame1Index = 0;
+        const gamePrompt1El = document.getElementById('game-prompt-1');
+        const gameInput1El = document.getElementById('game-input-1');
+        const checkGameBtn1 = document.getElementById('check-game-btn-1');
+        const gameFeedback1El = document.getElementById('game-feedback-1');
+        const nextGameBtn1 = document.getElementById('next-game-btn-1');
+
+        function setupGame1() {
+            gameFeedback1El.textContent = '';
+            gameInput1El.value = '';
+            gameInput1El.disabled = false;
+            checkGameBtn1.disabled = false;
+            nextGameBtn1.classList.add('hidden');
+            const current = game1Prompts[currentGame1Index];
+            gamePrompt1El.innerHTML = `<span class="font-bold">${current.request}</span> <span class="text-gray-400">...</span>`;
+        }
+        checkGameBtn1.addEventListener('click', () => {
+            const current = game1Prompts[currentGame1Index];
+            if (gameInput1El.value.trim() === current.response) {
+                gameFeedback1El.textContent = 'ممتاز! إجابة صحيحة.';
+                gameFeedback1El.style.color = '#28a745';
+                if (currentGame1Index < game1Prompts.length - 1) { nextGameBtn1.classList.remove('hidden'); } else { gameFeedback1El.textContent = 'رائع! لقد أتقنت اللعبة.'; }
+            } else {
+                gameFeedback1El.textContent = `حاول مرة أخرى. الإجابة الصحيحة هي: ${current.response}`;
+                gameFeedback1El.style.color = '#dc3545';
+            }
+            gameInput1El.disabled = true; checkGameBtn1.disabled = true;
+        });
+        nextGameBtn1.addEventListener('click', () => { currentGame1Index++; setupGame1(); });
+
+        // Game 2: Correct the mistake
+        const game2Prompts = [ { sentence: "تعاونوا تسهلُ الحياة.", error: "تسهلُ", correct: "تسهلِ" }, { sentence: "لا تهملْ دروسك تنجحَ.", error: "تنجحَ", correct: "تنجحْ" }, { sentence: "اقرأ كثيراً تزدادُ معرفة.", error: "تزدادُ", correct: "تزددْ" }];
+        let currentGame2Index = 0;
+        const gamePrompt2El = document.getElementById('game-prompt-2');
+        const gameInput2El = document.getElementById('game-input-2');
+        const checkGameBtn2 = document.getElementById('check-game-btn-2');
+        const gameFeedback2El = document.getElementById('game-feedback-2');
+        const nextGameBtn2 = document.getElementById('next-game-btn-2');
+
+        function setupGame2() {
+            gameFeedback2El.textContent = '';
+            gameInput2El.value = '';
+            gameInput2El.disabled = false;
+            checkGameBtn2.disabled = false;
+            nextGameBtn2.classList.add('hidden');
+            const current = game2Prompts[currentGame2Index];
+            gamePrompt2El.innerHTML = current.sentence.replace(current.error, `<span class="text-red-500 font-bold">${current.error}</span>`);
+        }
+        checkGameBtn2.addEventListener('click', () => {
+            const current = game2Prompts[currentGame2Index];
+            if (gameInput2El.value.trim() === current.correct) {
+                gameFeedback2El.textContent = 'صحيح! هذا هو التصويب الدقيق.';
+                gameFeedback2El.style.color = '#28a745';
+                if (currentGame2Index < game2Prompts.length - 1) { nextGameBtn2.classList.remove('hidden'); } else { gameFeedback2El.textContent = 'أحسنت! لقد أنهيت هذه اللعبة.'; }
+            } else {
+                gameFeedback2El.textContent = `إجابة غير صحيحة. التصويب هو: ${current.correct}`;
+                gameFeedback2El.style.color = '#dc3545';
+            }
+            gameInput2El.disabled = true; checkGameBtn2.disabled = true;
+        });
+        nextGameBtn2.addEventListener('click', () => { currentGame2Index++; setupGame2(); });
+
+        // Game 3: Matching
+        const game3Items = [
+            { id: 1, request: "احترمْ الناس", response: "يحترموك" },
+            { id: 2, request: "اتقِ الله", response: "تفزْ" },
+            { id: 3, request: "ابتعدوا عن الشر", response: "تسلموا" }
+        ];
+        let game3CorrectMatches = 0;
+        const game3RequestsEl = document.getElementById('game3-requests');
+        const game3ResponsesEl = document.getElementById('game3-responses');
+        const game3FeedbackEl = document.getElementById('game-feedback-3');
+
+        function setupGame3() {
+            game3CorrectMatches = 0;
+            game3FeedbackEl.textContent = '';
+            game3RequestsEl.innerHTML = '';
+            game3ResponsesEl.innerHTML = '';
+            
+            const shuffledResponses = [...game3Items].sort(() => Math.random() - 0.5);
+
+            game3Items.forEach(item => {
+                const requestDiv = document.createElement('div');
+                requestDiv.className = 'flex items-center gap-2';
+                requestDiv.innerHTML = `<div class="p-3 bg-blue-100 rounded-lg font-semibold w-1/2">${item.request}</div><div id="drop-${item.id}" data-id="${item.id}" class="drop-target p-3 rounded-lg w-1/2 h-12"></div>`;
+                game3RequestsEl.appendChild(requestDiv);
+            });
+
+            shuffledResponses.forEach(item => {
+                const responseDiv = document.createElement('div');
+                responseDiv.id = `drag-${item.id}`;
+                responseDiv.dataset.id = item.id;
+                responseDiv.draggable = true;
+                responseDiv.className = 'draggable-item p-3 bg-white border rounded-lg font-semibold';
+                responseDiv.textContent = item.response;
+                game3ResponsesEl.appendChild(responseDiv);
+            });
+            addDragDropListeners();
+        }
+
+        function addDragDropListeners() {
+            const draggables = document.querySelectorAll('.draggable-item');
+            const dropTargets = document.querySelectorAll('.drop-target');
+            draggables.forEach(draggable => {
+                draggable.addEventListener('dragstart', e => {
+                    e.dataTransfer.setData('text/plain', e.target.id);
+                    setTimeout(() => e.target.classList.add('dragging'), 0);
+                });
+                draggable.addEventListener('dragend', e => e.target.classList.remove('dragging'));
+            });
+            dropTargets.forEach(target => {
+                target.addEventListener('dragover', e => { e.preventDefault(); target.classList.add('over'); });
+                target.addEventListener('dragleave', () => target.classList.remove('over'));
+                target.addEventListener('drop', e => {
+                    e.preventDefault();
+                    target.classList.remove('over');
+                    const draggedId = e.dataTransfer.getData('text/plain');
+                    const draggedEl = document.getElementById(draggedId);
+                    if (target.dataset.id === draggedEl.dataset.id) {
+                        target.appendChild(draggedEl);
+                        target.classList.add('correct');
+                        draggedEl.draggable = false;
+                        draggedEl.style.cursor = 'default';
+                        game3CorrectMatches++;
+                        if (game3CorrectMatches === game3Items.length) {
+                            game3FeedbackEl.textContent = 'أحسنت! لقد أكملت التوصيل بنجاح.';
+                            game3FeedbackEl.style.color = '#28a745';
+                        }
+                    } else {
+                        game3FeedbackEl.textContent = 'توصيل خاطئ، حاول مرة أخرى.';
+                        game3FeedbackEl.style.color = '#dc3545';
+                        setTimeout(() => game3FeedbackEl.textContent = '', 2000);
+                    }
+                });
+            });
+        }
+
+        // --- Test Logic ---
+        const testQuestions = [
+            { question: "في جملة (قفا نبكِ)، ما علامة جزم الفعل (نبكِ)؟", options: ["السكون", "حذف حرف العلة", "حذف النون", "الفتحة"], answer: "حذف حرف العلة", explanation: "الفعل (نبكِ) أصله (نبكي)، وهو معتل الآخر بالياء، وعند جزمه يُحذف حرف العلة." },
+            { question: "ما هو جواب الطلب في جملة (ألِنْ جانبك لقومك يحبّوك)؟", options: ["ألِنْ", "جانبك", "قومك", "يحبّوك"], answer: "يحبّوك", explanation: "الفعل (يحبّوك) هو النتيجة المترتبة على فعل الطلب (ألِنْ)." },
+            { question: "في أي جملة جُزم الفعل المضارع لأنه جواب الطلب تحديدًا؟", options: ["إن تدرسْ تنجحْ", "ادرسْ تنجحْ", "ادرسْ فتنجحَ", "ادرسْ لكي تنجحَ"], answer: "ادرسْ تنجحْ", explanation: "جملة (ادرس تنجح) هي التي تحقق شروط جزم المضارع في جواب الطلب (طلب يترتب عليه جواب). أما جملة (إن تدرس تنجح) فهي أسلوب شرط صريح لوجود أداة الشرط (إنْ)." },
+            { question: "أعرب الفعل (تنفرجي) في: (اشتدّي أزمةً تنفرجي).", options: ["فعل مضارع مرفوع", "فعل أمر مبني", "فعل مضارع مجزوم", "فعل ماضٍ"], answer: "فعل مضارع مجزوم", explanation: "الفعل (تنفرجي) جاء جوابًا لفعل الطلب (اشتدّي) فهو مجزوم، وعلامة جزمه حذف النون." },
+            { question: "عيّن فعل الطلب في: (زورا محافظة إربد تجدا جمال الطبيعة).", options: ["تجدا", "جمال", "زورا", "محافظة"], answer: "زورا", explanation: "فعل الطلب هو فعل الأمر الذي تبدأ به الجملة، وهو (زورا)." },
+            { question: "ما علامة جزم الفعل (تجدا) في: (زورا... تجدا جمال الطبيعة)؟", options: ["السكون", "حذف النون", "حذف حرف العلة", "الفتحة"], answer: "حذف النون", explanation: "الفعل (تجدا) من الأفعال الخمسة، وعلامة جزمه حذف النون." },
+            { question: "ما هو جواب الطلب في: (صَلُّوا في المسجد الأقصى تجدوا متعة الخشوع)؟", options: ["صَلُّوا", "تجدوا", "متعة", "الخشوع"], answer: "تجدوا", explanation: "الفعل (تجدوا) هو النتيجة المترتبة على فعل الطلب (صلّوا)." },
+            { question: "ما علامة جزم الفعل (تعيشوا) في: (ابتعدوا عن الشائعات تعيشوا بسلام)؟", options: ["السكون الظاهر", "حذف حرف العلة", "حذف النون", "السكون المقدر"], answer: "حذف النون", explanation: "الفعل (تعيشوا) من الأفعال الخمسة، وعلامة جزمه حذف النون." },
+            { question: "ما علامة جزم الفعل (ترَ) في: (اجتهدْ ترَ نتائج العمل الجاد)؟", options: ["الفتحة", "السكون", "حذف النون", "حذف حرف العلة"], answer: "حذف حرف العلة", explanation: "الفعل (ترَ) أصله (ترى)، وهو معتل الآخر بالألف، وعند جزمه يُحذف حرف العلة." },
+            { question: "في جملة (تَكَلَّمْ تُعْرَفُ)، الفعل (تُعْرَفُ) هو:", options: ["فعل الطلب", "جواب الشرط", "جواب الطلب", "فعل مضارع مرفوع"], answer: "جواب الطلب", explanation: "الفعل (تُعْرَفُ) مجزوم لأنه جاء نتيجة لفعل الأمر (تكلمْ)." },
+            { question: "ما إعراب (قفا) في بيت امرئ القيس؟", options: ["فعل مضارع مجزوم", "فعل أمر مبني على حذف النون", "فعل ماضٍ", "فعل أمر مبني على السكون"], answer: "فعل أمر مبني على حذف النون", explanation: "الفعل (قفا) هو فعل أمر مسند إلى ألف الاثنين، فيُبنى على حذف النون." },
+            { question: "ما إعراب (يرفعوك) في وصية ذي الإصبع العدواني؟", options: ["فعل مضارع مجزوم بحذف النون", "فعل مضارع منصوب", "فعل أمر مبني على حذف النون", "فعل مضارع مرفوع"], answer: "فعل مضارع مجzوم بحذف النون", explanation: "الفعل (يرفعوك) جواب طلب، وهو من الأفعال الخمسة، فيُجزم بحذف النون." },
+            { question: "في جملة (ابسطْ لهم وجهك يطيعوك)، فعل الطلب هو:", options: ["وجهك", "يطيعوك", "لهم", "ابسطْ"], answer: "ابسطْ", explanation: "فعل الطلب هو فعل الأمر الذي تبدأ به الجملة، وهو (ابسطْ)." },
+            { question: "ما علامة جزم الفعل (تُجسّدْ) في: (احترمْ وطنك تُجسّدْ معنى الانتماء)؟", options: ["حذف النون", "السكون", "حذف حرف العلة", "الكسرة"], answer: "السكون", explanation: "الفعل (تجسّد) صحيح الآخر، ولم يتصل به شيء، فعلامة جزمه السكون." },
+            { question: "أي جملة تمثل أسلوب طلب صحيح؟", options: ["إن تصنع المعروف تنجُ", "اصنعْ المعروف تنجو", "اصنعْ المعروف فتنجو", "اصنعْ المعروف تنجُ"], answer: "اصنعْ المعروف تنجُ", explanation: "جواب الطلب (تنجُ) يجب أن يكون مجزومًا بحذف حرف العلة (أصله تنجو)." },
+            { question: "ما التقدير الشرطي لجملة (سامحْ الناس يسامحْك ربك)؟", options: ["لو تسامح الناس يسامحك ربك", "إن تسامحْ الناس يسامحْك ربك", "متى تسامح الناس يسامحك ربك", "كل ما سبق صحيح"], answer: "إن تسامحْ الناس يسامحْك ربك", explanation: "أداة الشرط المناسبة للتقدير هي (إنْ) وفعل شرط مجزوم." },
+            { question: "الفعل (يُؤلّف) في (تسامحوا يُؤلّف الله بينكم) مجزوم وعلامة جزمه:", options: ["السكون حُرّك بالكسر", "حذف النون", "السكون الظاهر", "حذف حرف العلة"], answer: "السكون حُرّك بالكسر", explanation: "علامة الجزم الأصلية هي السكون، لكنه حُرّك بالكسر لمنع التقاء الساكنين مع (الله)." },
+            { question: "ما إعراب واو الجماعة في (تعاونوا)؟", options: ["لا محل لها من الإعراب", "ضمير متصل في محل نصب مفعول به", "ضمير متصل في محل رفع فاعل", "حرف عطف"], answer: "ضمير متصل في محل رفع فاعل", explanation: "واو الجماعة إذا اتصلت بفعل تام تكون دائمًا في محل رفع فاعل." },
+            { question: "ما هو فعل الطلب في جملة (شاركي في الانتخابات تُساهمي)؟", options: ["تُساهمي", "الانتخابات", "في", "شاركي"], answer: "شاركي", explanation: "فعل الطلب هو فعل الأمر الذي تبدأ به الجملة، وهو (شاركي)." },
+            { question: "ما علامة جزم (تُساهمي) في الجملة السابقة؟", options: ["الكسرة", "حذف النون", "السكون", "حذف حرف الياء"], answer: "حذف النون", explanation: "الفعل (تساهمي) من الأفعال الخمسة لاتصاله بياء المخاطبة، فيُجزم بحذف النون." },
+            { question: "اختر الجواب الصحيح لإكمال الجملة: (تواضعْ للناس...)", options: ["يحترموكَ", "يحترمونك", "يحترموكِ", "يحترموكُ"], answer: "يحترموكَ", explanation: "جواب الطلب (يحترموك) يجب أن يكون مجزومًا بحذف النون لأنه من الأفعال الخمسة." },
+            { question: "ما هو فعل الطلب في وصية ذي الإصبع: (تواضعْ لهم يرفعوك)؟", options: ["لهم", "يرفعوك", "تواضعْ", "ذي الإصبع"], answer: "تواضعْ", explanation: "الطلب هو فعل الأمر (تواضعْ)." },
+            { question: "علامة جزم الفعل (يغفرْ) في (اتّقِ الله يغفرْ لك) هي:", options: ["حذف النون", "حذف حرف العلة", "السكون", "الفتحة"], answer: "السكون", explanation: "الفعل (يغفر) صحيح الآخر، فيجزم بالسكون." },
+            { question: "لماذا جُزم الفعل (تتجنبا) في (اصنعا المعروف تتجنبا ميتة السوء)؟", options: ["لأنه فعل شرط", "لأنه جواب الطلب", "لأنه فعل أمر", "لأنه معطوف على مجزوم"], answer: "لأنه جواب الطلب", explanation: "الفعل (تتجنبا) هو النتيجة المترتبة على فعل الطلب (اصنعا)." },
+            { question: "ما علامة بناء فعل الأمر (تكلّمْ)؟", options: ["الفتحة", "حذف النون", "السكون", "الضمة"], answer: "السكون", explanation: "فعل الأمر (تكلّمْ) صحيح الآخر ولم يتصل به شيء، فيبنى على السكون." },
+            { question: "ما هو جواب الطلب في قول الشاعر: (اشتدي أزمة تنفرجي)؟", options: ["اشتدي", "أزمة", "تنفرجي", "قد آذن"], answer: "تنفرجي", explanation: "الفعل (تنفرجي) هو النتيجة المترتبة على الطلب (اشتدي)." },
+            { question: "ما إعراب ألف الاثنين في (زورا)؟", options: ["مفعول به", "فاعل", "نائب فاعل", "لا محل له"], answer: "فاعل", explanation: "ألف الاثنين إذا اتصلت بفعل تام تكون دائمًا في محل رفع فاعل." },
+            { question: "أي جملة تحتوي على فعل مضارع مجزوم بحذف حرف العلة في جواب الطلب؟", options: ["ادعُ الله بالخير", "ادعُ الله يأتِك الخيرُ", "ادعوا الله يأتكم الخير", "إن تدعُ الله يأتك الخير"], answer: "ادعُ الله يأتِك الخيرُ", explanation: "الفعل (يأتِك) أصله (يأتيك)، وهو جواب الطلب (ادعُ)، وجُزم بحذف حرف العلة (الياء)." },
+            { question: "ما هو أصل جملة (ادرسْ تنجحْ)؟", options: ["إذا تدرسْ تنجحْ", "ادرسْ لكي تنجحْ", "ادرسْ فتنجحَ", "إن تدرسْ تنجحْ"], answer: "إن تدرسْ تنجحْ", explanation: "أسلوب الطلب يمكن تقديره بأسلوب شرط أداته (إنْ)." },
+            { question: "ما إعراب ياء المخاطبة في (شاركي)؟", options: ["مفعول به", "فاعل", "نائب فاعل", "لا محل له"], answer: "فاعل", explanation: "ياء المخاطبة إذا اتصلت بفعل تام تكون دائمًا في محل رفع فاعل." },
+            { question: "في جملة (تعاونوا في حياتكم تسهلِ الحياة)، لماذا حُرّك الفعل (تسهلْ) بالكسر؟", options: ["لأنه مجرور", "لمنع التقاء الساكنين", "لأنه معطوف", "لضرورة شعرية"], answer: "لمنع التقاء الساكنين", explanation: "أصل الفعل (تسهلْ) مجزوم بالسكون، وحُرّك بالكسر لمنع التقاء الساكنين مع (الـ) في كلمة (الحياة)." },
+            { question: "أي من التالية ليس من علامات جزم الفعل المضارع؟", options: ["السكون", "حذف النون", "الفتحة", "حذف حرف العلة"], answer: "الفتحة", explanation: "الفتحة هي علامة نصب للفعل المضارع، وليست من علامات الجزم." },
+            { question: "اختر التصويب الصحيح لجملة (ادعوا بالخير يأتيكم الخير).", options: ["ادعوا بالخير يأتكم الخير", "ادعوا بالخير يأتيكمُ الخير", "ادعوا بالخير يأتيكمْ الخير", "الجملة صحيحة"], answer: "ادعوا بالخير يأتكم الخير", explanation: "جواب الطلب (يأتكم) يجب أن يكون مجزومًا بحذف حرف العلة من آخره (أصله يأتيكم)." },
+            { question: "في جملة (تكلمْ تعرفْ)، ما إعراب (تعرفْ)؟", options: ["فعل مضارع مرفوع", "فعل مضارع مجزوم", "فعل أمر", "فعل ماضٍ"], answer: "فعل مضارع مجزوم", explanation: "الفعل (تعرفْ) جاء جوابًا للطلب (تكلمْ) فهو مجزوم وعلامة جزمه السكون." },
+            { question: "ما هو فعل الطلب في جملة (اتقِ الله يرزقْك)؟", options: ["الله", "يرزقْك", "اتقِ", "الكاف في يرزقك"], answer: "اتقِ", explanation: "فعل الطلب هو فعل الأمر (اتقِ)، وأصله (اتقي) مبني على حذف حرف العلة." },
+            { question: "ما علامة بناء فعل الأمر (اسعوا)؟", options: ["الضمة", "حذف النون", "السكون", "الفتحة"], answer: "حذف النون", explanation: "فعل الأمر إذا اتصلت به واو الجماعة يُبنى على حذف النون." },
+            { question: "في جملة (احترمْ وطنك تجسّدْ الانتماء)، ما العلاقة بين (احترم) و (تجسد)؟", options: ["تضاد", "ترادف", "سبب ونتيجة", "لا علاقة بينهما"], answer: "سبب ونتيجة", explanation: "احترام الوطن (السبب) يؤدي إلى تجسيد الانتماء (النتيجة)، وهذا هو جوهر أسلوب الطلب." },
+            { question: "أي جملة تحتوي على خطأ نحوي؟", options: ["ادرسوا تنجحوا", "ادرسْ تنجحْ", "ادرسي تنجحين", "ادرسا تنجحا"], answer: "ادرسي تنجحين", explanation: "جواب الطلب يجب أن يكون مجزومًا، والصواب (ادرسي تنجحي) بحذف النون." },
+            { question: "ما إعراب الكاف في (يحترموك)؟", options: ["ضمير متصل في محل رفع فاعل", "ضمير متصل في محل نصب مفعول به", "لا محل له من الإعراب", "ضمير متصل في محل جر"], answer: "ضمير متصل في محل نصب مفعول به", explanation: "الكاف إذا اتصلت بالفعل تكون في محل نصب مفعول به." },
+            { question: "في جملة (قلْ الصدق تنجُ)، ما أصل الفعل (تنجُ)؟", options: ["تنجي", "ينجو", "تنجو", "ناجٍ"], answer: "تنجو", explanation: "أصل الفعل هو (تنجو) بالواو، وعندما جُزم في جواب الطلب حُذف حرف العلة الواو." },
+            { question: "ما علامة جزم الفعل (أذكركم) في قوله تعالى: (فاذكروني أذكركم)؟", options: ["السكون", "حذف النون", "حذف حرف العلة", "الفتحة"], answer: "السكون", explanation: "الفعل (أذكر) صحيح الآخر، فعلامة جزمه السكون." },
+            { question: "أي فعل أمر مبني على حذف حرف العلة؟", options: ["صلّوا", "ادعُ", "تكلمْ", "قفا"], answer: "ادعُ", explanation: "الفعل (ادعُ) أصله (ادعو)، وهو فعل أمر معتل الآخر، فيبنى على حذف حرف العلة." },
+            { question: "ما جواب الطلب في جملة (تصدّقْ تؤجرْ)؟", options: ["تصدّقْ", "تؤجرْ", "أنت", "لا يوجد"], answer: "تؤجرْ", explanation: "الفعل (تؤجرْ) هو النتيجة المترتبة على فعل الطلب (تصدّقْ)." },
+            { question: "ما علامة بناء فعل الأمر (ابتعدوا)؟", options: ["الضمة", "السكون", "حذف النون", "الفتحة"], answer: "حذف النون", explanation: "فعل الأمر إذا اتصلت به واو الجماعة يُبنى على حذف النون." },
+            { question: "في جملة (زورا إربد تجدا الجمال)، الضمير (ألف الاثنين) في (تجدا) في محل:", options: ["رفع فاعل", "نصب مفعول به", "جر مضاف إليه", "لا محل له"], answer: "رفع فاعل", explanation: "ألف الاثنين إذا اتصلت بفعل مضارع من الأفعال الخمسة تكون في محل رفع فاعل." },
+            { question: "ما هو جواب الطلب في وصية ذي الإصبع: (تواضع لهم يرفعوك)؟", options: ["تواضع", "لهم", "يرفعوك", "لا يوجد"], answer: "يرفعوك", explanation: "الفعل (يرفعوك) هو النتيجة المترتبة على فعل الطلب (تواضع)." },
+            { question: "أي جملة لا تحتوي على أسلوب طلب؟", options: ["ادرسْ تنجحْ", "إن تدرسْ تنجحْ", "صلِّ بخشوعٍ يطمئنْ قلبُك", "لا تهملْ واجباتِك"], answer: "إن تدرسْ تنجحْ", explanation: "جملة (إن تدرسْ تنجحْ) هي أسلوب شرط صريح لوجود أداة الشرط (إنْ)، وليست أسلوب طلب." },
+            { question: "ما علامة جزم الفعل (يطيعوك) في (ابسط لهم وجهك يطيعوك)؟", options: ["السكون", "حذف النون", "حذف حرف العلة", "الضمة"], answer: "حذف النون", explanation: "الفعل (يطيعوك) من الأفعال الخمسة، فيجزم بحذف النون." },
+            { question: "ما هو فعل الطلب في جملة (تعاونوا تسهلِ الحياة)؟", options: ["تسهلِ", "الحياة", "في", "تعاونوا"], answer: "تعاونوا", explanation: "فعل الطلب هو فعل الأمر (تعاونوا)." },
+            { question: "اختر الإعراب الصحيح لكلمة (تجدوا) في (صلّوا تجدوا):", options: ["فعل مضارع مرفوع", "فعل أمر مبني", "فعل مضارع مجزوم", "فعل ماضٍ"], answer: "فعل مضارع مجزوم", explanation: "الفعل (تجدوا) جاء جوابًا للطلب (صلّوا) فهو مجزوم." }
+        ];
+        let currentTestIndex = 0;
+        let testScore = 0;
+
+        const startTestBtn = document.getElementById('start-test-btn');
+        const retryTestBtn = document.getElementById('retry-test-btn');
+        const testStartScreen = document.getElementById('test-start-screen');
+        const testQuizScreen = document.getElementById('test-quiz-screen');
+        const testEndScreen = document.getElementById('test-end-screen');
+        const testFeedbackBox = document.getElementById('test-feedback-box');
+        
+        function startTest() {
+            currentTestIndex = 0;
+            testScore = 0;
+            testStartScreen.classList.add('hidden');
+            testEndScreen.classList.add('hidden');
+            testQuizScreen.classList.remove('hidden');
+            displayTestQuestion();
+        }
+
+        function displayTestQuestion() {
+            testFeedbackBox.classList.add('hidden');
+            document.getElementById('test-question-counter').textContent = `السؤال ${currentTestIndex + 1} / ${testQuestions.length}`;
+            document.getElementById('test-score-display').textContent = `النتيجة: ${testScore}`;
+            document.getElementById('progress-bar').style.width = `${((currentTestIndex) / testQuestions.length) * 100}%`;
+            
+            const q = testQuestions[currentTestIndex];
+            document.getElementById('test-question').textContent = q.question;
+            const optionsEl = document.getElementById('test-options');
+            optionsEl.innerHTML = '';
+            q.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.textContent = opt;
+                btn.className = 'quiz-option p-4 rounded-lg font-semibold';
+                btn.onclick = () => selectTestAnswer(btn, opt);
+                optionsEl.appendChild(btn);
+            });
+        }
+        
+        function selectTestAnswer(btn, answer) {
+            const currentQuestion = testQuestions[currentTestIndex];
+            const correct = answer === currentQuestion.answer;
+            
+            document.querySelectorAll('.quiz-option').forEach(b => {
+                b.disabled = true;
+                if(b.textContent === currentQuestion.answer) {
+                    b.classList.add('correct');
+                }
+            });
+
+            if (correct) {
+                testScore++;
+                btn.classList.add('correct');
+                testFeedbackBox.innerHTML = `<p class="text-green-700">أحسنت! ${currentQuestion.explanation}</p>`;
+                testFeedbackBox.className = 'feedback-box mt-4 p-4 rounded-lg text-center font-semibold bg-green-100';
+            } else {
+                btn.classList.add('incorrect');
+                testFeedbackBox.innerHTML = `<p class="text-red-700">إجابة خاطئة. ${currentQuestion.explanation}</p>`;
+                testFeedbackBox.className = 'feedback-box mt-4 p-4 rounded-lg text-center font-semibold bg-red-100';
+            }
+            testFeedbackBox.classList.remove('hidden');
+            
+            setTimeout(() => {
+                currentTestIndex++;
+                 document.getElementById('progress-bar').style.width = `${((currentTestIndex) / testQuestions.length) * 100}%`;
+                if (currentTestIndex < testQuestions.length) {
+                    displayTestQuestion();
+                } else {
+                    showTestResults();
+                }
+            }, 5000);
+        }
+
+        function showTestResults() {
+            testQuizScreen.classList.add('hidden');
+            testEndScreen.classList.remove('hidden');
+            document.getElementById('test-final-score').textContent = `${testScore} / ${testQuestions.length}`;
+            const feedbackEl = document.getElementById('test-final-feedback');
+            const percentage = (testScore / testQuestions.length) * 100;
+            if (percentage >= 80) {
+                feedbackEl.innerHTML = '<p class="font-bold text-green-600">ممتاز! أنت تتقن الدرس تمامًا.</p>';
+                feedbackEl.className = 'p-4 rounded-lg bg-green-100';
+            } else if (percentage >= 50) {
+                feedbackEl.innerHTML = '<p class="font-bold text-yellow-600">جيد جدًا، لكنك تحتاج لمراجعة بسيطة. يمكنك الاطلاع على الخطة العلاجية.</p>';
+                feedbackEl.className = 'p-4 rounded-lg bg-yellow-100';
+            } else {
+                feedbackEl.innerHTML = '<p class="font-bold text-red-600">تحتاج إلى المزيد من المراجعة. نوصي بالاطلاع على الخطة العلاجية والتحدث مع معلمك.</p>';
+                feedbackEl.className = 'p-4 rounded-lg bg-red-100';
+            }
+        }
+
+        startTestBtn.addEventListener('click', startTest);
+        retryTestBtn.addEventListener('click', startTest);
+        
+        // Initial setup
+        document.addEventListener('DOMContentLoaded', () => {
+            setupGame1();
+            setupGame2();
+            setupGame3();
+        });
+
+    </script>
+</body>
+</html>
